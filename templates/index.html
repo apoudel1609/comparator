@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Files</title>
+    <style>
+        /* Your existing styles */
+        body {
+            text-align: center; /* Center the content */
+            padding-top: 50px; /* Add padding at the top */
+        }
+        .logo {
+            max-width: 500px; /* Maximum width for the logo */
+            margin-bottom: 50px; /* Space below the logo */
+        }
+        .file-input {
+            margin: 20px; /* Margin around the file inputs for spacing */
+            display: inline-block; /* Display block for better control */
+        }
+        .file-input label {
+            background-color: #007bff; /* Background color for the label/button */
+            color: white; /* Text color */
+            padding: 10px 20px; /* Padding inside the label/button */
+            border-radius: 5px; /* Rounded corners for aesthetics */
+            cursor: pointer; /* Change mouse cursor to pointer */
+        }
+        .file-input input {
+            display: none; /* Hide the default file input */
+        }
+        .filename {
+            display: block; /* Make sure the filenames appear below the buttons */
+            margin-top: 10px; /* Space above the filename */
+        }
+        /* Additional CSS as needed */
+    </style>
+</head>
+<body>
+    <img src="{{ url_for('static', filename='MSB.jpg') }}" alt="MSB Logo" class="logo">
+    <h1> PDF AS-BUILT COMPARATOR </h1>
+    <h2> UPLOAD </h2>
+    <h3> PDF and Excel </h3>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="match-string">Enter String to Match:</label>
+            <input type="text" name="match_string" id="match-string" option>
+        </div>
+        <div class="file-input">
+            <label for="pdf-upload">PDF Upload</label>
+            <input type="file" name="pdf" id="pdf-upload" onchange="updateFilename(this, 'pdf-filename')">
+            <span id="pdf-filename" class="filename"></span>
+        </div>
+        <div class="file-input">
+            <label for="excel-upload">Excel Upload</label>
+            <input type="file" name="excel" id="excel-upload" onchange="updateFilename(this, 'excel-filename')">
+            <span id="excel-filename" class="filename"></span>
+        </div>
+        <input type="submit" value="COMPARE">
+    </form>
+
+    <script>
+        function updateFilename(inputElement, outputId) {
+            if (inputElement.files.length > 0) {
+                var filename = inputElement.files[0].name;
+                document.getElementById(outputId).textContent = filename;
+            }
+        }
+    </script>
+</body>
+</html>
